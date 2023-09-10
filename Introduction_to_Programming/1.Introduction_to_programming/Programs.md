@@ -1,0 +1,32 @@
+# Programs
+
+**프로그램은 컴퓨터가 실제로 수행하는 동작의 특성을 나타낸다.**
+
+
+- 프로그램(언어에 상관없이)은 두가지의 기본 요소들로 구분된다.
+    1. objects : 관련된 정보(data)의 표현
+    2. operations : 원하는 기능을 실현하는 방식으로 표현을 조작하는 방법에 대한 설명
+
+
+## Example: CallCenter
+
+> 클라이언트가 특정 도시의 특정 인물 이름과 연관된 전화번호를 요청하면 교환원은 해당 도시의 전화번호부를 선택하고 그곳에 해당 인물 이름에 해당하는 전화번호를 검색하여 클라이언트에게 응답한다.
+
+- Objects:
+     - client
+     - operator
+     - telephone registry
+     - telephone numbers
+     - person name
+     - cities 
+
+- Operations: 
+    1. 클라이언트가 특정 도시의 특정 사람의 이름을 알려주며 그 사람의 전화번호를 요청한다.
+    2. 교환원은 클라이언트에게 넘겨받은 도시의 정보를 통해 해당 도시의 전화번호부를 선택한다.
+    3. 전화번호부에서 클라이언트가 요청한 사람의 이름을 검색한다.
+    4. 교환원은 검색하여 나온 결과를 클라이언트에게 알려준다.
+
+## Class diagram (UML: Unified Modeling Language)
+
+![CallCenter_diagram](../images/class_diagram.png)
+
