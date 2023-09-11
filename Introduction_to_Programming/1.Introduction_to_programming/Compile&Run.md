@@ -15,6 +15,7 @@
 - class 파일이 있을 때 실행할 수 있다.
 - 실행 명령어: `java First`와 같이 클래스명을 작성한다.
 - First 클래스의 Main method를 실행하여 화면에 출력한다.
+- `javap First` 명령어를 사용하면 역컴파일이 된다.
 
 ```java
 public class First {
