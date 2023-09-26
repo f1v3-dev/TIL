@@ -1,7 +1,7 @@
 package com.nhnacademy;
 
 import java.time.LocalDate;
-import org.apache.commons.csv.CSVRecord;
+import java.util.List;
 
 public class Movie {
     private int movieId;
@@ -23,93 +23,74 @@ public class Movie {
     public Movie() {
     }
 
-//    public Movie(int movieId, String title, String koreanTitle, String plot, int releaseYear, int runningTime,
-//                 int gradeID, int gradInKoreaID, String poster, LocalDate date, long boxOfficeWWGross,
-//                 long boxOfficeUSGross, long budget, String originalAuthor, String originalSource) {
-//        this.movieId = movieId;
-//        this.title = title;
-//        this.koreanTitle = koreanTitle;
-//        this.plot = plot;
-//        this.releaseYear = releaseYear;
-//        this.runningTime = runningTime;
-//        this.gradeID = gradeID;
-//        this.gradInKoreaID = gradInKoreaID;
-//        this.poster = poster;
-//        this.date = date;
-//        this.boxOfficeWWGross = boxOfficeWWGross;
-//        this.boxOfficeUSGross = boxOfficeUSGross;
-//        this.budget = budget;
-//        this.originalAuthor = originalAuthor;
-//        this.originalSource = originalSource;
-//    }
 
     private boolean isNull(String data) {
-        if (data.equals("NULL")){
+        if (data.equals("NULL")) {
             return true;
         }
         return false;
     }
 
 
-    public void setMovieId(String movieId) {
-        if(isNull(movieId)){
+    private void setMovieId(String movieId) {
+        if (isNull(movieId)) {
             throw new IllegalArgumentException("movieId가 null 일수는 없습니다.");
         }
         this.movieId = Integer.parseInt(movieId);
     }
 
-    public void setTitle(String title) {
-        if(isNull(title)){
+    private void setTitle(String title) {
+        if (isNull(title)) {
             throw new IllegalArgumentException("title이 null 일수는 없습니다.");
         }
-        this.title = title;
+        this.title = title.replace("\"", "");
     }
 
-    public void setKoreanTitle(String koreanTitle) {
-        this.koreanTitle = koreanTitle;
+    private void setKoreanTitle(String koreanTitle) {
+        this.koreanTitle = koreanTitle.replace("\",", "");
     }
 
-    public void setPlot(String plot) {
-        this.plot = plot;
+    private void setPlot(String plot) {
+        this.plot = plot.replace("\"", "");
     }
 
-    public void setReleaseYear(String releaseYear) {
-        if(isNull(releaseYear)) {
+    private void setReleaseYear(String releaseYear) {
+        if (isNull(releaseYear)) {
             this.releaseYear = 0;
-        }else {
+        } else {
             this.releaseYear = Integer.valueOf(releaseYear);
         }
     }
 
-    public void setRunningTime(String runningTime) {
-        if(isNull(runningTime)) {
+    private void setRunningTime(String runningTime) {
+        if (isNull(runningTime)) {
             this.runningTime = 0;
             return;
         }
         this.runningTime = Integer.parseInt(runningTime);
     }
 
-    public void setGradeID(String gradeID) {
-        if(isNull(gradeID)){
+    private void setGradeID(String gradeID) {
+        if (isNull(gradeID)) {
             this.gradeID = 0;
             return;
         }
         this.gradeID = Integer.parseInt(gradeID);
     }
 
-    public void setGradInKoreaID(String gradInKoreaID) {
-        if(isNull(gradInKoreaID)) {
+    private void setGradInKoreaID(String gradInKoreaID) {
+        if (isNull(gradInKoreaID)) {
             this.gradInKoreaID = 0;
             return;
         }
         this.gradInKoreaID = Integer.parseInt(gradInKoreaID);
     }
 
-    public void setPoster(String poster) {
+    private void setPoster(String poster) {
         this.poster = poster;
     }
 
-    public void setDate(String date) {
+    private void setDate(String date) {
         if (isNull(date)) {
             this.date = null;
             return;
@@ -117,36 +98,35 @@ public class Movie {
         this.date = LocalDate.parse(date); // 작동하는지 모름
     }
 
-    public void setBoxOfficeWWGross(String boxOfficeWWGross) {
-        if(isNull(boxOfficeWWGross))
-        {
+    private void setBoxOfficeWWGross(String boxOfficeWWGross) {
+        if (isNull(boxOfficeWWGross)) {
             this.boxOfficeWWGross = 0l;
             return;
         }
         this.boxOfficeWWGross = Long.parseLong(boxOfficeWWGross);
     }
 
-    public void setBoxOfficeUSGross(String boxOfficeUSGross) {
-        if(isNull(boxOfficeUSGross)){
+    private void setBoxOfficeUSGross(String boxOfficeUSGross) {
+        if (isNull(boxOfficeUSGross)) {
             this.boxOfficeUSGross = 0l;
             return;
         }
         this.boxOfficeUSGross = Long.parseLong(boxOfficeUSGross);
     }
 
-    public void setBudget(String budget) {
-        if(isNull(budget)) {
+    private void setBudget(String budget) {
+        if (isNull(budget)) {
             this.budget = 0;
             return;
         }
         this.budget = Integer.parseInt(budget);
     }
 
-    public void setOriginalAuthor(String originalAuthor) {
+    private void setOriginalAuthor(String originalAuthor) {
         this.originalAuthor = originalAuthor;
     }
 
-    public void setOriginalSource(String originalSource) {
+    private void setOriginalSource(String originalSource) {
         this.originalSource = originalSource;
     }
 
@@ -225,22 +205,25 @@ public class Movie {
                 + "원작 : " + this.originalSource + "\n";
     }
 
-    public void addDatas(CSVRecord csvRecord) {
+    public void addData(List<String> dataList) {
+
         int count = 0;
-        setMovieId(csvRecord.get(count++));
-        setTitle(csvRecord.get(count++));
-        setKoreanTitle(csvRecord.get(count++));
-        setPlot(csvRecord.get(count++));
-        setReleaseYear(csvRecord.get(count++));
-        setRunningTime(csvRecord.get(count++));
-        setGradeID(csvRecord.get(count++));
-        setGradInKoreaID(csvRecord.get(count++));
-        setPoster(csvRecord.get(count++));
-        setDate(csvRecord.get(count++));
-        setBoxOfficeWWGross(csvRecord.get(count++));
-        setBoxOfficeUSGross(csvRecord.get(count++));
-        setBudget(csvRecord.get(count++));
-        setOriginalAuthor(csvRecord.get(count++));
-        setOriginalSource(csvRecord.get(count++));
+
+        setMovieId(dataList.get(count++));
+        setTitle(dataList.get(count++));
+        setKoreanTitle(dataList.get(count++));
+        setPlot(dataList.get(count++));
+        setReleaseYear(dataList.get(count++));
+        setRunningTime(dataList.get(count++));
+        setGradeID(dataList.get(count++));
+        setGradInKoreaID(dataList.get(count++));
+        setPoster(dataList.get(count++));
+        setDate(dataList.get(count++));
+        setBoxOfficeWWGross(dataList.get(count++));
+        setBoxOfficeUSGross(dataList.get(count++));
+        setBudget(dataList.get(count++));
+        setOriginalAuthor(dataList.get(count++));
+        setOriginalSource(dataList.get(count++));
     }
+
 }
