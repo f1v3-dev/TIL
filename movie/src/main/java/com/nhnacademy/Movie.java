@@ -1,6 +1,7 @@
 package com.nhnacademy;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 public class Movie {
@@ -226,4 +227,18 @@ public class Movie {
         setOriginalSource(dataList.get(count++));
     }
 
+    public Movie findByKoreanTitle(String searchName) {
+        setKoreanTitle(searchName);
+        return this;
+    }
+
+    public Movie findByTitle(String searchName) {
+        setTitle(searchName);
+        return this;
+    }
+
+    public Movie findByReleaseYear(String releaseYear) {
+        setReleaseYear(releaseYear);
+        return this;
+    }
 }
