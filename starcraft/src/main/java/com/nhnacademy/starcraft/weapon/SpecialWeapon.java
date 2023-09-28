@@ -2,7 +2,7 @@ package com.nhnacademy.starcraft.weapon;
 
 
 /**
- * Special Weapon : MISSILE, LASER, NEEDILE
+ * Special Weapon : MISSILE, LASER, NEEDILE.
  */
 public final class SpecialWeapon extends Weapon {
 

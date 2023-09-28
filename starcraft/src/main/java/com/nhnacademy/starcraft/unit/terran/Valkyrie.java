@@ -1,6 +1,6 @@
-package com.nhnacademy.starcraft.unit.TerranUnit;
+package com.nhnacademy.starcraft.unit.terran;
 
-import com.nhnacademy.starcraft.race.Terran.Terran;
+import com.nhnacademy.starcraft.race.terran.Terran;
 import com.nhnacademy.starcraft.unit.AirUnit;
 import com.nhnacademy.starcraft.weapon.Weapon;
 

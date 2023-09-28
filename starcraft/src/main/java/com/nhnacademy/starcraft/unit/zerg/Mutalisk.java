@@ -1,7 +1,7 @@
-package com.nhnacademy.starcraft.unit.ZergUnit;
+package com.nhnacademy.starcraft.unit.zerg;
 
 
-import com.nhnacademy.starcraft.race.Zerg.Zerg;
+import com.nhnacademy.starcraft.race.zerg.Zerg;
 import com.nhnacademy.starcraft.unit.AirUnit;
 import com.nhnacademy.starcraft.weapon.Weapon;
 

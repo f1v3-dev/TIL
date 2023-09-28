@@ -1,11 +1,12 @@
-package com.nhnacademy.starcraft.race.Terran;
+package com.nhnacademy.starcraft.race.terran;
 
 import com.nhnacademy.starcraft.race.Race;
-import com.nhnacademy.starcraft.unit.TerranUnit.Goliath;
-import com.nhnacademy.starcraft.unit.TerranUnit.Marine;
-import com.nhnacademy.starcraft.unit.TerranUnit.Tank;
-import com.nhnacademy.starcraft.unit.TerranUnit.Valkyrie;
-import com.nhnacademy.starcraft.unit.TerranUnit.Wraith;
+import com.nhnacademy.starcraft.unit.terran.BattleCruzer;
+import com.nhnacademy.starcraft.unit.terran.Goliath;
+import com.nhnacademy.starcraft.unit.terran.Marine;
+import com.nhnacademy.starcraft.unit.terran.Tank;
+import com.nhnacademy.starcraft.unit.terran.Valkyrie;
+import com.nhnacademy.starcraft.unit.terran.Wraith;
 import java.util.Random;
 
 
@@ -27,7 +28,7 @@ public class Terran extends Race {
     public void generateUnits() {
         Random random = new Random();
         for (int i = 0; i < UNIT_COUNT; i++) {
-            int randomNumber = random.nextInt(5);
+            int randomNumber = random.nextInt(6);
 
             switch (randomNumber) {
                 case 0:
@@ -45,6 +46,11 @@ public class Terran extends Race {
                 case 4:
                     unitList.add(new Wraith(this));
                     break;
+                case 5:
+                    unitList.add(new BattleCruzer(this));
+                    break;
+                default:
+                    throw new IllegalArgumentException("잘못된 값이 입력되었습니다.");
             }
         }
     }

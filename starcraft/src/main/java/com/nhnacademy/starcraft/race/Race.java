@@ -21,7 +21,6 @@ public abstract class Race {
     }
 
     public void printUnits() {
-
         for (int i = 0; i < unitList.size(); i++) {
             System.out.println((i + 1) + " : " + unitList.get(i));
 

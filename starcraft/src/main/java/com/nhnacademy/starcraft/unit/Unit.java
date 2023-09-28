@@ -39,7 +39,8 @@ public abstract class Unit {
     public void setDefensePower(int defensePower) {
         this.defensePower = defensePower;
     }
-    public Unit(Race race, String name, int attackPower, int defensePower, Weapon weapon) {
+
+    Unit(Race race, String name, int attackPower, int defensePower, Weapon weapon) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("유닛의 이름은 빈 문자열이 될 수 없습니다.");
         }
@@ -84,6 +85,6 @@ public abstract class Unit {
 
     @Override
     public String toString() {
-        return this.getName() + " (현재 방어력: " + this.getDefensePower() + ")";
+        return this.getName() + " [공격력: " + this.getAttackPower() + "] " + " (현재 방어력: " + this.getDefensePower() + ")";
     }
 }

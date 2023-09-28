@@ -1,11 +1,12 @@
-package com.nhnacademy.starcraft.race.Protos;
+package com.nhnacademy.starcraft.race.protoss;
 
 import com.nhnacademy.starcraft.race.Race;
-import com.nhnacademy.starcraft.unit.ProtosUnit.Corsair;
-import com.nhnacademy.starcraft.unit.ProtosUnit.Dragoon;
-import com.nhnacademy.starcraft.unit.ProtosUnit.HighTempler;
-import com.nhnacademy.starcraft.unit.ProtosUnit.Scout;
-import com.nhnacademy.starcraft.unit.ProtosUnit.Zealot;
+import com.nhnacademy.starcraft.unit.protoss.Carrier;
+import com.nhnacademy.starcraft.unit.protoss.Corsair;
+import com.nhnacademy.starcraft.unit.protoss.Dragoon;
+import com.nhnacademy.starcraft.unit.protoss.HighTempler;
+import com.nhnacademy.starcraft.unit.protoss.Scout;
+import com.nhnacademy.starcraft.unit.protoss.Zealot;
 import java.util.Random;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Random;
  * Corsair: 날 수 있는 유닛이며, 4의 공격력과 12의 방어력을 가집니다.
  */
 
-public class Protos extends Race {
+public class Protoss extends Race {
 
     private static final int UNIT_COUNT = 4;
 
@@ -28,7 +29,7 @@ public class Protos extends Race {
         Random random = new Random();
 
         for (int i = 0; i < UNIT_COUNT; i++) {
-            int randomNumber = random.nextInt(5);
+            int randomNumber = random.nextInt(6);
 
             switch (randomNumber) {
                 case 0:
@@ -46,9 +47,13 @@ public class Protos extends Race {
                 case 4:
                     unitList.add(new Corsair(this));
                     break;
+                case 5:
+                    unitList.add(new Carrier(this));
+                    break;
+                default:
+                    throw new IllegalArgumentException("잘못된 값이 입력되었습니다.");
             }
 
         }
-
     }
 }

@@ -21,11 +21,11 @@ public class GroundUnit extends Unit {
             if (this.getWeapon() instanceof SpecialWeapon) {
                 unit.defense(this);
             } else {
-                throw new IllegalArgumentException("공중 유닛을 공격할 수 없습니다.");
+                throw new IllegalArgumentException("지상 유닛은 공중 유닛을 공격할 수 없습니다.");
             }
+        } else {
+            // 공격 대상이 지상 유닛인 경우
+            unit.defense(this);
         }
-
-        // 공격 대상이 지상 유닛인 경우
-        unit.defense(this);
     }
 }

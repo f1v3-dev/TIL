@@ -1,11 +1,12 @@
-package com.nhnacademy.starcraft.race.Zerg;
+package com.nhnacademy.starcraft.race.zerg;
 
 import com.nhnacademy.starcraft.race.Race;
-import com.nhnacademy.starcraft.unit.ZergUnit.Guardian;
-import com.nhnacademy.starcraft.unit.ZergUnit.Hydralisk;
-import com.nhnacademy.starcraft.unit.ZergUnit.Mutalisk;
-import com.nhnacademy.starcraft.unit.ZergUnit.Ultralisk;
-import com.nhnacademy.starcraft.unit.ZergUnit.Zergling;
+import com.nhnacademy.starcraft.unit.zerg.Guardian;
+import com.nhnacademy.starcraft.unit.zerg.Hydralisk;
+import com.nhnacademy.starcraft.unit.zerg.Mutalisk;
+import com.nhnacademy.starcraft.unit.zerg.Queen;
+import com.nhnacademy.starcraft.unit.zerg.Ultralisk;
+import com.nhnacademy.starcraft.unit.zerg.Zergling;
 import java.util.Random;
 
 /**
@@ -28,7 +29,7 @@ public class Zerg extends Race {
 
         Random random = new Random();
         for (int i = 0; i < UNIT_COUNT; i++) {
-            int randomNumber = random.nextInt(5);
+            int randomNumber = random.nextInt(6);
 
             switch (randomNumber) {
                 case 0:
@@ -46,6 +47,11 @@ public class Zerg extends Race {
                 case 4:
                     unitList.add(new Guardian(this));
                     break;
+                case 5:
+                    unitList.add(new Queen(this));
+                    break;
+                default:
+                    throw new IllegalArgumentException("잘못된 값이 입력되었습니다.");
             }
         }
     }

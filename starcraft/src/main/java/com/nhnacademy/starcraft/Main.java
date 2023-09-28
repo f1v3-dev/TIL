@@ -1,9 +1,9 @@
 package com.nhnacademy.starcraft;
 
-import com.nhnacademy.starcraft.race.Protos.Protos;
 import com.nhnacademy.starcraft.race.Race;
-import com.nhnacademy.starcraft.race.Terran.Terran;
-import com.nhnacademy.starcraft.race.Zerg.Zerg;
+import com.nhnacademy.starcraft.race.protoss.Protoss;
+import com.nhnacademy.starcraft.race.terran.Terran;
+import com.nhnacademy.starcraft.race.zerg.Zerg;
 import com.nhnacademy.starcraft.unit.Unit;
 import java.util.List;
 import java.util.Random;
@@ -16,10 +16,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("스타크래프트 게임을 시작합니다.");
-
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("스타크래프트 게임을 시작합니다.");
         System.out.println("플레이어의 종족을 선택하세요.");
         System.out.println("1. 프로토스");
         System.out.println("2. 테란");
@@ -28,12 +27,12 @@ public class Main {
         System.out.print("> ");
         int number = sc.nextInt();
 
-
         computerRace = selectRace((int) (Math.random() * 3) + 1);
+        playerRace = selectRace(number);
+
         printUnits(computerRace);
         System.out.println();
 
-        playerRace = selectRace(number);
         printUnits(playerRace);
         System.out.println();
 
@@ -54,6 +53,15 @@ public class Main {
         System.out.println("=====================\n\n");
         while (computerRace.getUnitCount() != 0 || playerRace.getUnitCount() != 0) {
 
+            if (computerRace.getUnitCount() == 0) {
+                System.out.println("플레이어 승리!!");
+                break;
+            }
+
+            if (playerRace.getUnitCount() == 0) {
+                System.out.println("컴퓨터 승리 ㅠㅠ");
+                break;
+            }
 
             if (playerTurn) {
                 System.out.println("턴을 시작합니다.");
@@ -81,16 +89,27 @@ public class Main {
         List<Unit> attackRaceUnits = attackRace.getUnitList();
         List<Unit> defenseRaceUnits = defenseRace.getUnitList();
 
-        attackRaceUnits.get(attackUnitNumber - 1).attack(defenseRaceUnits.get(defenseUnitNumber - 1));
+        Unit attackUnit = attackRaceUnits.get(attackUnitNumber - 1);
+        Unit defenseUnit = defenseRaceUnits.get(defenseUnitNumber - 1);
+
+        try {
+            System.out.println(attackUnit.getName() + "이(가) " + defenseUnit.getName() + "을(를) 공격합니다.");
+            attackUnit.attack(defenseUnit);
+            System.out.println(defenseUnit.getName() + "의 남은 방어력 : " + defenseUnit.getDefensePower());
+            System.out.println();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println();
     }
 
 
     private static void printUnits(Race race) {
 
         if (race == playerRace) {
-            System.out.println("[아군 유닛 " + race.getClass().getSimpleName() + "]");
+            System.out.println("[아군 유닛 (" + race.getClass().getSimpleName() + ")]");
         } else {
-            System.out.println("[적군 유닛 " + race.getClass().getSimpleName() + "]");
+            System.out.println("[적군 유닛 (" + race.getClass().getSimpleName() + ")]");
         }
 
         race.printUnits();
@@ -100,7 +119,7 @@ public class Main {
     private static Race selectRace(int number) {
         switch (number) {
             case 1:
-                return new Protos();
+                return new Protoss();
             case 2:
                 return new Terran();
             case 3:
