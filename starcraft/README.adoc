@@ -1,0 +1,48 @@
+
+== starcraft 구조
+
+[source,shell]
+----
+├── java
+│   └── com
+│       └── nhnacademy
+│           └── starcraft
+│               ├── Main.java
+│               ├── race
+│               │   ├── Race.java
+│               │   ├── protoss
+│               │   │   └── Protoss.java
+│               │   ├── terran
+│               │   │   └── Terran.java
+│               │   └── zerg
+│               │       └── Zerg.java
+│               ├── unit
+│               │   ├── AirUnit.java
+│               │   ├── GroundUnit.java
+│               │   ├── Unit.java
+│               │   ├── protoss
+│               │   │   ├── Carrier.java
+│               │   │   ├── Corsair.java
+│               │   │   ├── Dragoon.java
+│               │   │   ├── HighTempler.java
+│               │   │   ├── Scout.java
+│               │   │   └── Zealot.java
+│               │   ├── terran
+│               │   │   ├── BattleCruzer.java
+│               │   │   ├── Goliath.java
+│               │   │   ├── Marine.java
+│               │   │   ├── Tank.java
+│               │   │   ├── Valkyrie.java
+│               │   │   └── Wraith.java
+│               │   └── zerg
+│               │       ├── Guardian.java
+│               │       ├── Hydralisk.java
+│               │       ├── Mutalisk.java
+│               │       ├── Queen.java
+│               │       ├── Ultralisk.java
+│               │       └── Zergling.java
+│               └── weapon
+│                   ├── SpecialWeapon.java
+│                   └── Weapon.java
+└── resources
+----
