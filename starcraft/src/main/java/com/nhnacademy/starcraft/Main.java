@@ -11,9 +11,14 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+    private static final int PROTOSS = 1;
+    private static final int TERRAN = 2;
+    private static final int ZERG = 3;
 
-    private static Race computerRace;
     private static Race playerRace;
+    private static Race computerRace;
+
+    private static Random random = new Random();
 
     public static void main(String[] args) {
 
@@ -21,35 +26,53 @@ public class Main {
 
         System.out.println("스타크래프트 게임을 시작합니다.");
 
-
-        while (true) {
-            try {
-                System.out.println("플레이어의 종족을 선택하세요.");
-                System.out.println("1. 프로토스");
-                System.out.println("2. 테란");
-                System.out.println("3. 저그");
-                System.out.print("> ");
-
-                int number = sc.nextInt();
-                computerRace = selectRace((int) (Math.random() * 3) + 1);
-                playerRace = selectRace(number);
-                break;
-            } catch (InputMismatchException e) {
-                sc.nextLine();
-                System.out.println("숫자를 입력하세요.");
-            } catch (IllegalArgumentException e) {
-                sc.nextLine();
-                System.out.println(e.getMessage());
-            }
-        }
+        // 플레이어와 컴퓨터의 종족을 선택합니다. (플레이어는 선택, 컴퓨터는 랜덤)
+        selectPlayerRace(sc);
+        computerRace = selectRace(random.nextInt(3) + 1);
 
         System.out.println("게임을 시작합니다.");
         playGame(computerRace, playerRace, sc);
 
     }
 
+    private static void selectPlayerRace(Scanner sc) {
+        while (true) {
+            try {
+                printRaceSelection();
+                playerRace = selectRace(sc.nextInt());
+                break;
+            } catch (InputMismatchException e) {
+                sc.nextLine();
+                System.out.println("1 ~ 3 사이의 숫자를 입력해주세요.");
+            } catch (IllegalArgumentException e) {
+                sc.nextLine();
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static void printRaceSelection() {
+        System.out.println("플레이어의 종족을 선택하세요.");
+        System.out.println(PROTOSS + ". 프로토스");
+        System.out.println(TERRAN + ". 테란");
+        System.out.println(ZERG + ". 저그");
+        System.out.print("> ");
+    }
+
+    private static Race selectRace(int number) {
+        switch (number) {
+            case 1:
+                return new Protoss();
+            case 2:
+                return new Terran();
+            case 3:
+                return new Zerg();
+            default:
+                throw new IllegalArgumentException("1 ~ 3 사이의 값을 입력하세요.");
+        }
+    }
+
     private static void playGame(Race computerRace, Race playerRace, Scanner sc) {
-        Random random = new Random();
 
 
         // TODO: 게임 진행
@@ -96,6 +119,9 @@ public class Main {
                 sc.nextLine();
                 System.out.println("숫자를 입력하세요.");
                 continue;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                continue;
             }
 
             playerTurn = !playerTurn;
@@ -105,29 +131,43 @@ public class Main {
     }
 
     private static void attackUnit(int attackUnitNumber, int defenseUnitNumber, Race attackRace, Race defenseRace) {
-
-
-        List<Unit> attackRaceUnits = attackRace.getUnitList();
-        List<Unit> defenseRaceUnits = defenseRace.getUnitList();
-
-        Unit attackUnit;
-        Unit defenseUnit;
         try {
-            attackUnit = attackRaceUnits.get(attackUnitNumber - 1);
-            defenseUnit = defenseRaceUnits.get(defenseUnitNumber - 1);
+            Unit attacker = getUnitFromList(attackUnitNumber, attackRace.getUnitList());
+            Unit defender = getUnitFromList(defenseUnitNumber, defenseRace.getUnitList());
+
+            attackUnit(attacker, defender);
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("유닛 번호를 잘못 입력하셨습니다.");
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
         }
+    }
 
+    private static void attackUnit(Unit attacker, Unit defender) {
+        System.out.println(attacker.getName() + "이(가) " + defender.getName() + "을(를) 공격합니다.\n");
         try {
-            System.out.println(attackUnit.getName() + "이(가) " + defenseUnit.getName() + "을(를) 공격합니다.");
-            attackUnit.attack(defenseUnit);
-            System.out.println(defenseUnit.getName() + "의 남은 방어력 : " + defenseUnit.getDefensePower());
+            performAttack(attacker, defender);
+
+            if (defender.getDefensePower() > 0) {
+                System.out.println(defender.getName() + "의 남은 방어력 : " + defender.getDefensePower());
+            }
             System.out.println();
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage());
         }
-        System.out.println();
+    }
+
+
+    private static void performAttack(Unit attacker, Unit defender) {
+        try {
+            attacker.attack(defender);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+    }
+
+    private static Unit getUnitFromList(int attackUnitNumber, List<Unit> unitList) {
+        return unitList.get(attackUnitNumber - 1);
     }
 
 
@@ -143,17 +183,6 @@ public class Main {
         System.out.println();
     }
 
-    private static Race selectRace(int number) {
-        switch (number) {
-            case 1:
-                return new Protoss();
-            case 2:
-                return new Terran();
-            case 3:
-                return new Zerg();
-            default:
-                throw new IllegalArgumentException("1 ~ 3 사이의 값을 입력하세요.");
-        }
-    }
+
 }
 

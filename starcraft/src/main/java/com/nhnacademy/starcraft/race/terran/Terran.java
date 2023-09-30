@@ -1,7 +1,7 @@
 package com.nhnacademy.starcraft.race.terran;
 
 import com.nhnacademy.starcraft.race.Race;
-import com.nhnacademy.starcraft.unit.terran.BattleCruzer;
+import com.nhnacademy.starcraft.unit.terran.Battlecruiser;
 import com.nhnacademy.starcraft.unit.terran.Goliath;
 import com.nhnacademy.starcraft.unit.terran.Marine;
 import com.nhnacademy.starcraft.unit.terran.Tank;
@@ -47,7 +47,7 @@ public class Terran extends Race {
                     unitList.add(new Wraith(this));
                     break;
                 case 5:
-                    unitList.add(new BattleCruzer(this));
+                    unitList.add(new Battlecruiser(this));
                     break;
                 default:
                     throw new IllegalArgumentException("잘못된 값이 입력되었습니다.");

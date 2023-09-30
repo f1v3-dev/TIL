@@ -5,9 +5,9 @@ import com.nhnacademy.starcraft.unit.AirUnit;
 import com.nhnacademy.starcraft.weapon.Weapon;
 
 // BattleCruzer: 날 수 있는 유닛, 공격력 20, 방어력.
-public class BattleCruzer extends AirUnit {
+public class Battlecruiser extends AirUnit {
 
-    public BattleCruzer(Terran terran) {
-        super(terran, "BattleCruzer", 20, 10, new Weapon("Missile"));
+    public Battlecruiser(Terran terran) {
+        super(terran, "Battlecruiser", 20, 10, new Weapon("Laser"));
     }
 }
