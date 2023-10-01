@@ -17,8 +17,7 @@ import java.util.Random;
  * Goliath: 날 수 없는 유닛이며, 5의 공격력과 15의 방어력을 가집니다. 미사일을 발사 할 수 있습니다. (special)
  * Wraith: 날 수 있는 유닛이며, 3의 공격력과 10의 방어력을 가집니다.
  * Valkyrie: 날 수 있는 유닛이며, 4의 공격력과 12의 방어력을 가집니다.
- *
- * BattleCruzer: 날 수 있는 유닛, 공격력 20, 방어력 30
+ * BattleCruzer: 날 수 있는 유닛, 공격력 20, 방어력 30을 가집니다.
  */
 
 public class Terran extends Race {

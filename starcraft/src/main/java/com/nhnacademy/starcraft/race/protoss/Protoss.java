@@ -16,8 +16,7 @@ import java.util.Random;
  * HighTempler: 날 수 없는 유닛이며, 10의 공격력과 2의 방어력을 가집니다.
  * Scout: 날 수 있는 유닛이며, 5의 공격력과 10의 방어력을 가집니다.
  * Corsair: 날 수 있는 유닛이며, 4의 공격력과 12의 방어력을 가집니다.
- *
- * Carrier: 날 수 있는 유닛, 공격력: 25, 방어력 40
+ * Carrier: 날 수 있는 유닛, 공격력: 25, 방어력 40을 가집니다.
  */
 
 public class Protoss extends Race {

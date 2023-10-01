@@ -17,7 +17,6 @@ public abstract class Unit {
     private String name;
     private int attackPower;
     private int defensePower;
-
     private Weapon weapon;
 
     public int getAttackPower() {
@@ -36,7 +35,7 @@ public abstract class Unit {
         return name;
     }
 
-    public void setDefensePower(int defensePower) {
+    private void setDefensePower(int defensePower) {
         this.defensePower = defensePower;
     }
 
@@ -78,7 +77,7 @@ public abstract class Unit {
     }
 
 
-    public void die(String attackerName, String defenderName) {
+    private void die(String attackerName, String defenderName) {
         this.race.removeDeadUnit(this);
         System.out.println(attackerName + "이(가) " + defenderName + "을(를) 죽였습니다!! \n");
     }

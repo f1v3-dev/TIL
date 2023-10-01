@@ -8,7 +8,4 @@ public class Weapon {
         this.name = name.toUpperCase();
     }
 
-    public String getName() {
-        return name;
-    }
 }

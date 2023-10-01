@@ -182,7 +182,4 @@ public class Main {
         race.printUnits();
         System.out.println();
     }
-
-
 }
-
