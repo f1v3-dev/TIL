@@ -3,17 +3,19 @@ package com.nhnacademy.starcraft.race;
 import com.nhnacademy.starcraft.unit.Unit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public abstract class Race {
 
+    private static final Random random = new Random();
     protected List<Unit> unitList;
 
     public Race() {
         this.unitList = new ArrayList<>();
-        generateUnits();
+        generateUnits(random);
     }
 
-    public abstract void generateUnits();
+    public abstract void generateUnits(Random random);
 
     // TODO: 유닛의 방어력이 0인 경우 유닛을 제거
     public void removeDeadUnit(Unit deadUnit) {

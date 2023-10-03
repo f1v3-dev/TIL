@@ -12,7 +12,7 @@ public class GroundUnit extends Unit {
     }
 
     // 지상 유닛은 공중 유닛을 공격할 수 없습니다.
-    // 하지만 Weapon이 미사일, 레이저 포 또는 침을 가진 유닛은 날 수 있는 유닛을 공격할 수 있습니다.
+    // 하지만 Weapon이 미사일, 레이저 포 또는 침(Special Weapon)을 가진 유닛은 날 수 있는 유닛을 공격할 수 있습니다.
     @Override
     public void attack(Unit unit) {
 

@@ -26,9 +26,8 @@ public class Zerg extends Race {
 
     // TODO : Zerg를 선택하면 8개의 유닛이 무작위로 생성됩니다.
     @Override
-    public void generateUnits() {
+    public void generateUnits(Random random) {
 
-        Random random = new Random();
         for (int i = 0; i < UNIT_COUNT; i++) {
             int randomNumber = random.nextInt(6);
 

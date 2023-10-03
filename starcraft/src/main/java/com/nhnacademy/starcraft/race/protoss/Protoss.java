@@ -25,9 +25,7 @@ public class Protoss extends Race {
 
     // TODO: Protos를 선택하면 4개의 유닛이 무작위로 생성됩니다.
     @Override
-    public void generateUnits() {
-
-        Random random = new Random();
+    public void generateUnits(Random random) {
 
         for (int i = 0; i < UNIT_COUNT; i++) {
             int randomNumber = random.nextInt(6);

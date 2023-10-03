@@ -26,8 +26,8 @@ public class Terran extends Race {
 
     // TODO: Terran을 선택하면 5개의 유닛이 무작위로 생성됩니다.
     @Override
-    public void generateUnits() {
-        Random random = new Random();
+    public void generateUnits(Random random) {
+
         for (int i = 0; i < UNIT_COUNT; i++) {
             int randomNumber = random.nextInt(6);
 
