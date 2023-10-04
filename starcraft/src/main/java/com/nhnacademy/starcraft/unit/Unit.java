@@ -72,12 +72,12 @@ public abstract class Unit {
 
         // 방어력이 0이 된 유닛은 소멸되는 메서드를 호출
         if (this.getDefensePower() <= 0) {
-            die(unit.getName(), this.getName());
+            killUnit(unit.getName(), this.getName());
         }
     }
 
 
-    private void die(String attackerName, String defenderName) {
+    private void killUnit(String attackerName, String defenderName) {
         this.race.removeDeadUnit(this);
         System.out.println(attackerName + "이(가) " + defenderName + "을(를) 죽였습니다!! \n");
     }
