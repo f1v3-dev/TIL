@@ -1,0 +1,4 @@
+/.idea/sonarlint/
+.idea
+.idea/*.xml
+.idea/*.iml
