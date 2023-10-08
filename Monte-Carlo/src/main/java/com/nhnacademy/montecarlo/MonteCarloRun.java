@@ -2,7 +2,7 @@ package com.nhnacademy.montecarlo;
 
 import java.util.Scanner;
 
-public class MonteCarloTest {
+public class MonteCarloRun {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
