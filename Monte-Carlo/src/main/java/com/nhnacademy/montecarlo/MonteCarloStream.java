@@ -14,18 +14,15 @@ public class MonteCarloStream {
             double x = random.nextDouble();
             double y = random.nextDouble();
 
-            double result = Math.pow(x, 2) + Math.pow(y, 2);
-            if (result <= 1) {
-                return 1.0;
-            } else {
-                return 0.0;
-            }
+            return Math.pow(x, 2) + Math.pow(y, 2);
         });
 
-        return stream.limit(totalCycle)
-                .mapToDouble(Double::doubleValue)
-                .average()
-                .getAsDouble() * 4;
+        long count = stream.limit(totalCycle)
+                .filter(result -> result <= 1)
+                .count();
+
+        return 4 * ((double) count / totalCycle);
+
     }
 
     public static void main(String[] args) {
@@ -33,6 +30,6 @@ public class MonteCarloStream {
         System.out.print("시도 횟수: ");
         int totalCycle = sc.nextInt();
 
-        estimatedPi(totalCycle);
+        System.out.println(estimatedPi(totalCycle));
     }
 }
