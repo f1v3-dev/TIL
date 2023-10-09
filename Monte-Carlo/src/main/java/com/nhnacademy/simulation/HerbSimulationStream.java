@@ -3,7 +3,6 @@ package com.nhnacademy.simulation;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class HerbSimulationStream {
     static Random random = new Random();
@@ -25,13 +24,14 @@ public class HerbSimulationStream {
                 .average()
                 .orElse(0);
     }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         System.out.print("반복할 횟수를 입력하세요: ");
         int trials = sc.nextInt();
 
-        float avgEfficacy = (float)simulate(trials);
+        float avgEfficacy = (float) simulate(trials);
         System.out.println("총 " + trials + " 횟수를 돌린 결과 평균 효능은 " + avgEfficacy + " 입니다.");
     }
 }
