@@ -1,3 +1,5 @@
+package chap02;
+
 public class Start6 extends Thread {
     static int share;
 
@@ -9,6 +11,7 @@ public class Start6 extends Thread {
         t2.start();
     }
 
+    @Override
     public void run() {
         for (int i = 0; i < 10; i++) {
             System.out.println(share++);
