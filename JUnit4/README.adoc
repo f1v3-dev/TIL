@@ -1,0 +1,8 @@
+= JUnit Study
+
+* 해당 폴더는 `자바와 JUnit을  활용한 실용주의 단위 테스트` 책을 보며 공부한 내용을 정리합니다.
+
+== 환경
+* JUnit4
+* Java 11
+* Intellij
