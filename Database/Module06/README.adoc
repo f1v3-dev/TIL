@@ -1,0 +1,43 @@
+= Module 06: SQL
+
+- DDL : Data Definition Language
+- DML : Data Manipulation Language (CRUD)
+- DCL : Data Control Language
+
+
+== DDL: Data Definition Language
+* 데이터를 정의하는 언어
+* SQL에서 DDL은 관계 데이터베이스의 구조를 정의
+
+=== DDL 구문
+* CREATE : 릴레이션(테이블), 뷰, 인덱스, 저장 프로시저 등 데이터베이스 객체 생성
+[source]
+----
+CREATE [데이터베이스 객체 형식] [객체 이름]
+[객체의 종류에 따른 정의]
+----
+
+* DROP : 존재하는 데이터베이스 객체 삭제
+[source]
+----
+DROP [데이터베이스 객체 형식] [객체 이름]
+----
+
+* ALTER : 존재하는 데이터베이스 객체 수정
+[source]
+----
+ALTER [데이터베이스 객체 형식] [객체 이름]
+[객체의 종류에 따른 정의]
+----
+
+* TRUNCATE : 객체와 데이터의 완전 삭제
+[source]
+----
+TRUNCATE [TABLE] 테이블 이름 [테이블 이름]
+----
+
+
+== SQL 질의 형식
+- SELECT : Projection (π)
+- FROM :  Cartesian Product (×)
+- WHERE : Selection (σ)
