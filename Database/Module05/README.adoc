@@ -1,0 +1,192 @@
+
+= Module 05: 관계 대수와 관계 해석
+
+== 관계 대수 개요
+
+- **관계 대수식(Relational Algebra Expression)**은 연산자들의 모임을 사용해서 구성된 대수식
+- 릴레이션, 단항(Unary) 연산자와 이항(Binary) 연산자로 순환적으로 정의
+- 집합과 집합의 연산 결과는 항상 집합이 나온다.
+
+[source,sql]
+----
+SELECT *
+FROM A JOIN B ON ...
+
+SELECT *
+FROM A
+WHERE = (SELECT * FROM B ...)
+----
+- 위와 같이 질의(Query)는 집합과 집합의 연산에서 집합이 나온다.
+- 관계 질의는 연산자의 적용 순서를 통해 원하는 답을 구하는 계산 절차를 한 단계씩 묘사한 것.
+
+> 관계 대수식은 **Query Optimizer**에서 사용된다.
+
+== 관계 대수 연산자
+
+* *Selection (δ)*
+** 릴레이션에서 튜플들을 선택(Selection)할 수 있는 연산자 시그마
+
+* *Projection (π)*
+**  필드들을 추출(Projection) 할 수 있는 연산자 파이
+
+== 집합 연산자
+* *합집합(Union, U)*
+** 인스턴스 R이나 인스턴스 S 모두에 속하는 튜플들을 포함하는 릴레이션 인스턴스를 만듦.
+** R과 S는 합병이 가능해야 하며, 결과 스키마는 R의 스키마와 동일하다.
+
+* *교집합(Intersection, ∩)*
+** R ∩ S는 양쪽에 함께 속하는 모든 튜플로 구성된 릴레이션 인스턴스를 만듦.
+
+* *차집합(Set-different, -)*
+** R - S는 R에는 속하고 S에는 속하지 않은 튜플로 구성된 릴레이션 인스턴스를 만듦.
+
+* *카디션 프로덕트(Cartisian Product, X)*
+** R X S는 R의 모든 필드와 S의 모든 필드를 순서대로 가지는 스키마의 릴레이션 인스턴스를 만듦
+** R X S는 r∈R, s∈S 쌍에 대하여 투플 <r, s>를 하나씩 가짐
+
+> 프랑크 푸르트에 도착하거나 LA에서 출발하는 항공편의 시간을 구해라.
+
+_π(시간(δ(항공편.도착지='프랑크푸르트' OR 항공편.출발지='LA)))_
+
+[source,sql]
+----
+# WHERE에 조건을 2개
+SELECT 시간
+FROM 항공편
+WHERE 도착지 = '프랑크푸르트'
+    OR 출발지 = 'LA';
+
+
+# UNION 사용
+(SELECT 시간
+FROM 항공편
+WHERE 도착지 = '프랑크푸르트')
+UNION
+(SELECT 시간
+ FROM 항공편
+ WHERE 출발지 = 'LA');
+----
+
+* *로우 (ρ)*
+** 릴레이션에서 필드의 이름을 변경(Renaming)할 수 있는 연산자
+** 긴 대수식을 작은 부분으로 나누어 결과 인스턴스에 이름을 줄 수 있도록 하는 것이 편리함
+
+== 조인 (⋈)
+- 둘 이상의 릴레이션으로부터 정보를 조합하는 연산
+- 유도된 연산으로, 카디션 프로덕트와 프로젝션 연산을 함께 실행(필터와 같은 원리)하여 얻은 결과와 동일
+
+[%header, cols="1,1,3" width=95%]
+|===
+|종류              |기호	    |기능
+|동등 조인          |⋈	    |두 릴레이션간의 값을 가진 집합
+|세타 조인          |⋈θ	    |두 릴레이션 간의 비교 조건에 만족하는 집합
+|자연 조인          |⋈N	    |동등 조인에서 중복 속성을 제거
+|세미 조인          |⋉ and ⋊ 	|자연 조인 후 기호의 열린쪽의 속성을 제거
+|외부 조인 Left     |⟕	 	|자연 조인 후 왼쪽의 모든 값을 추출, 값이 없을 경우 한쪽의 값을 NULL로 채용
+|외부 조인 Right    |⟖	 	|자연 조인 후 오른쪽의 모든 값을 추출, 값이 없을 경우 한 쪽의 값을 NULL로 채용
+|외부 조인 Full     |⟗ 	    |자연 조인 후 양쪽의 모든 값을 추출, 값이 없을 경우 한 쪽의 값을 NULL로 채용
+|===
+
+- Join을 할 때 clustered index가 있는 테이블을 기준으로 Join을 하는 것이 좋다.
+- 또한, 카디널리티(튜플)의 수가 적은 테이블을 기준으로 Join을 하면 더 좋은 성능을 가질 것이다.
+
+> 이순신이라는 승객이 예약한 비행기 기종을 구하라
+
+_π(기종(δ(승객 ⋈ 항공편 ⋈ 비행기) 승객.이름='이순신'))_
+[source,sql]
+----
+SELECT 기종
+FROM 승객 JOIN 항공편 ON 승객.승객ID = 항공편.승객ID
+         JOIN 비행기 ON 항공편.비행기ID = 비행기.비행기ID
+WHERE 승객.이름 = '이순신';
+
+
+# 아래와 같은 방식으로 하면 카디션 프로덕트가 발생
+SELECT 기종
+FROM 승객, 항공권, 비행기
+WHERE 승객.이름 = '이순신';
+----
+
+== Quiz
+1 - 비행기 101을 운항하는 파일럿의 이름을 구하세요.
+_π(PilotName(δ(Aircraft ⋈ Flight ⋈ Pilot) Aircraft.No = 101))_
+[source,sql]
+----
+SELECT Pilot.PilotName
+FROM Flight JOIN AirCraft ON Flight.AirCraftNo = AirCraft.AirCraftNo
+	JOIN Pilot ON Flight.PilotNo = Pilot.PilotNo
+WHERE AirCraft.AirCraftNo = 101;
+----
+
+2 - 문제 1을 응용하여 개명 연산을 사용하여 각 대수식을 작은 부분으로 분할한 다음 합쳐 연산하는 관계 대수식을 작성하세요.
+[source,sql]
+----
+SELECT P.PilotName
+FROM Flight AS F JOIN AirCraft AS A ON F.AirCraftNo = A.AirCraftNo
+	JOIN Pilot AS P ON F.PilotNo = P.PilotNo
+WHERE A.AirCraftNo = 101;
+----
+
+3 - 전투기를 운항하는 파일럿의 이름을 구하세요.
+[source, sql]
+----
+SELECT P.PilotName
+FROM Flight AS F JOIN Pilot AS P ON F.PilotNo = P.PilotNo
+	 JOIN AirCraft AS A ON F.AirCraftNo = A.AirCraftNo
+WHERE A.AirCraftType = '전투기';
+----
+
+4 - 이순신이 조종하는 비행기의 종류를 구하세요.
+[source, sql]
+----
+SELECT P.PilotName
+FROM Flight AS F JOIN Pilot AS P ON F.PilotNo = P.PilotNo
+	 JOIN AirCraft AS A ON F.AirCraftNo = A.AirCraftNo
+WHERE A.AirCraftType = '전투기';
+----
+
+5 - 운항 스케줄이 잡혀있는 모든 파일럿의 이름을 구하세요.
+[source, sql]
+----
+SELECT P.PilotName
+FROM Flight AS F JOIN Pilot AS P ON F.PilotNo = P.PilotNo
+WHERE F.OperationDate IS NOT NULL;
+----
+
+6 - 폭격기 또는 정찰기를 운항하는 파일럿의 이름을 구하세요.
+[source,sql]
+----
+SELECT P.PilotName
+FROM Flight AS F JOIN AirCraft AS A ON F.AirCraftNo = A.AirCraftNo
+	JOIN Pilot AS P ON F.PilotNo = P.PilotNo
+WHERE A.AirCraftType IN ('폭격기', '정찰기');
+----
+
+7 - 전투기와 폭격기를 운형하는 파일럿의 이름을 구하세요.
+[source,sql]
+----
+SELECT P.PilotName
+FROM Flight AS F JOIN AirCraft AS A ON F.AirCraftNo = A.AirCraftNo
+	JOIN Pilot AS P ON F.PilotNo = P.PilotNo
+WHERE A.AirCraftType IN ('폭격기', '정찰기');
+----
+
+8 - 폭격기를 운항하지 않는 나이가 40세 이상의 파일럿의 파일럿번호를 구하세요.
+[source,sql]
+----
+SELECT P.PilotNo
+FROM Flight AS F JOIN AirCraft AS A ON F.AirCraftNo = A.AirCraftNo
+	JOIN Pilot AS P ON F.PilotNo = P.PilotNo
+WHERE A.AirCraftType != '폭격기' AND P.AGE >= 40;
+----
+
+9 - 운행하지 않는 비행기를 구하세요.
+
+[source, sql]
+----
+SELECT *
+FROM AirCraft LEFT OUTER JOIN FLIGHT
+	ON AirCraft.AirCraftNo = Flight.AirCraftNo
+WHERE Flight.OperationDate IS NULL;
+----
+== 관계 해석
