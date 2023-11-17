@@ -1,3 +1,13 @@
+use DatamotionMovieDatabase;
+
+desc appear;
+
+SELECT CONSTRAINT_NAME,
+       CONSTRAINT_TYPE
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+WHERE TABLE_NAME = 'appear';
+
+
 # 1. 영화 '퍼스트 맨'의 제작 연도, 영문 제목, 러닝 타임, 플롯을 출력하세요.
 
 SELECT ReleaseYear, Title, RunningTIme, Plot
@@ -348,3 +358,29 @@ SELECT (YEAR(CURDATE()) - YEAR) AS '회차'
 FROM awardyear
 ORDER BY Year ASC
 LIMIT 1;
+
+
+show tables;
+
+SELECT *
+FROM genre
+WHERE GenreID =
+      (SELECT GenreID
+       FROM movieGenre
+       WHERE MovieID =
+             (SELECT MovieID
+              FROM movie
+              WHERE KoreanTitle = '마션')
+       LIMIT 1);
+
+# 스칼라 서브쿼리를 사용
+SELECT KoreanTitle,
+       ReleaseYear,
+       RunningTime,
+       (SELECT GenreKorName
+        FROM MovieGenre
+                 INNER JOIN Genre ON moviegenre.GenreID = Genre.GenreID
+        WHERE MovieGenre.MovieID = m.MovieID
+        LIMIT 1) AS Genre
+FROM movie AS m
+WHERE KoreanTitle = '마션';
