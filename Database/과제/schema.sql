@@ -79,7 +79,7 @@ CREATE TABLE ShoppingCart
     CartID       nvarchar(150),
     Quantity     int,
     ProductID    int,
-    DateCreateed Datetime DEFAULT NOW(),
+    DateCreated Datetime DEFAULT NOW(),
 
     CONSTRAINT pk_RecordID PRIMARY KEY (RecordID),
     CONSTRAINT fk_cart_ProductID FOREIGN KEY (ProductID) REFERENCES Products (ProductID)

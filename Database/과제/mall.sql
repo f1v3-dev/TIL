@@ -4,6 +4,7 @@ use DatamotionMall;
 
 show tables;
 
+# 1. Category - 5개
 INSERT INTO Categories(CategoryName)
 VALUES ('Top'),
        ('Pants'),
@@ -13,8 +14,8 @@ VALUES ('Top'),
 
 desc products;
 
-# Product 1 Table에 튜플이 100개
-# 1번 Top 상품 20개 insert
+# 2. Product Table에 튜플이 100개
+## 2-1. Top 상품 20개 insert
 INSERT INTO Products
 VALUES (15, 1, 'DQ5843-536', 'NIKE AS W ACG WLF TREE TOP MID', 'DQ5843-536.jpg', 155000,
         '문명에서 수 마일 떨어진 침낭에서 일어나거나, 이른 아침 러닝 준비를 위해 알람 시계를 끄고 일어날 때 이 편안한 레이어를 착용해 보세요. 편안한 풀오버 핏과 모크넥이 룩에 즉각적인 보온성을 더해주어 힘차게 하루를 시작할 수 있습니다. 매우 부드럽고 레이어링에 안성맞춤인 재생 소재를 사용해 모험의 난관을 이겨내기 좋은 플리스를 제작했습니다.');
@@ -54,7 +55,7 @@ VALUES (1, 1, 'DQ5762-104', 'Nike AS W NSW PHNX FLC OOS CREW', 'DQ5762-104.jpg',
         '찬사받는 예술가 랠프 스태드먼의 작품만큼 냉혹하고 광기 어리며 아름답게 자유로운 영혼의 삶을 연상시키는 건 없습니다. 랠프의 기이한 의인화 일러스트는 탁 트인 길 위의 모험에 대한 상상을 나타내며, 보는 이가 자신의 한계를 넘을 수 있도록 준비시킵니다. 이 무게감 있는 플리스는 나이키 써마 핏 기술을 통해 체열을 관리해 줍니다. 트레일에서 역경을 견딜 때나 모닥불에 둘러앉아 이야기를 들려줄 때 이 아이템이 도움이 될 것입니다.');
 
 
-# 2번 Pants 상품 20개 insert
+## 2-2. Pants 상품 20개 insert
 INSERT INTO Products
 VALUES (21, 2, 'TR23FWDP03', 'FETCH X TRUE RELIGION SEPARATE CARGO PANTS (DENIM)', 'TR23FWDP03U.jpg', 318000, NULL),
        (22, 2, 'TR23FWDP02', 'TRUE RELIGION SCAR WASHED DENIM PANT', 'TR23FWDP02.jpg', 259000, NULL),
@@ -93,8 +94,7 @@ VALUES (21, 2, 'TR23FWDP03', 'FETCH X TRUE RELIGION SEPARATE CARGO PANTS (DENIM)
         '깔끔하고 심플하며 고급스러운 이 티어어웨이 팬츠는 다리 하단의 A Ma Maniére(아 마 마니에르) 브랜딩 스냅 버튼이 돋보입니다. 시대를 초월한 오프 코트 스타일과 함께 준비된 모습으로 경기에 임해 보세요.');
 
 
-desc products;
-# 3번 Shoes 상품 20개 insert
+## 2-3. Shoes 상품 20개 insert
 INSERT INTO Products
 VALUES (41, 3, '1134991', 'UGG CLASSIC MINI PLATFORM', '1134991.jpg', 278000,
         '아이콘을 현대적으로 해석한 이 Classic Mini는 다리가 길어지는 2인치 플랫폼으로 새로운 차원에 도달했습니다. 그 어느 때보다 대담한 룩을 제공하며, 오리지널과 동일한 풍부한 스웨이드와 시그니처 부드러움을 위한 UGGplush™ 울 혼방으로 제작되었습니다.'),
@@ -136,7 +136,7 @@ VALUES (41, 3, '1134991', 'UGG CLASSIC MINI PLATFORM', '1134991.jpg', 278000,
         'ODYSSEY ELMT ADVANCED는 편안함과 기능성이 우수한 슈즈입니다. 아웃도어 액티비티는 물론, 일상 생활 속에서도 편하게 신을 수 있습니다. 혁신적인 이중 어퍼와 보호 기능이 뛰어난 게이터가 함께 설계되어 발을 편안하고 안정적으로 보호해줍니다. 센시핏이 정확한 지지력을 만들어주고 특수 섀시 구조가 뛰어난 안정감과 쿠션감을 선사합니다.');
 
 
-# 4번 Outer 상품 20개 insert
+## 2-4. Outer 상품 20개 insert
 INSERT INTO Products
 VALUES (61, 4, '8AA001', 'OSTRYA HENSON DOWN PARKA', '8AA001.jpg', 1569000,
         '오스트리야의 아이코닉 아이템. 패커블로 휴대가 용이하다. 가볍고 내구성이 뛰어난 소재로 극한의 날씨의 활동에 적합하다. 850 필파워 트레이서블 화이트 구스 다운으로 가벼움을 유지하면서 보온성이 뛰어나다.'),
@@ -176,28 +176,104 @@ VALUES (61, 4, '8AA001', 'OSTRYA HENSON DOWN PARKA', '8AA001.jpg', 1569000,
        (80, 4, '3SJCUR', 'CHILL SPORTS CLUB CHILL URBAN RESERCH JACKET', '3SJCUR.jpg', 238000,
         '4WAY 스트레치 나일론/스판 원단으로 활동성을 극대화한 집업 바람막이 자켓입니다. 프론트 풀집과 지퍼 풀러로 클로징이 가능하며, 조절가능한 3D 후디와 지퍼 인사이드 포켓이 있습니다. 등 환기구멍과 안감 메쉬로 가볍게 착용됩니다.');
 
-# 5번 Hat 상품 20개 insert
+## 2-5. Hat 상품 20개 insert
 INSERT INTO Products
-VALUES (81, 5, 'FUAR90014', 'ARIES FAST FOOD TRUCKER CAP', 'FUAR90014.jpg', 95000, '메쉬 패널과 조절 가능한 플라스틱 스냅백이 있는 클래식 트러커 캡입니다. 앞면에 퍼프 프린트의 아카이브 Aries Fast Food 그래픽이 있고 뒷면에 ​​Aries 그리스 자수가 있습니다.'),
-       (82, 5, 'FUAR90005', 'ARIES MOTO CORDUROY CAP', 'FUAR90005.jpg', 144000, '100% 면 코듀로이 소재의 남녀공용 5패널 캡으로 조절 가능한 플라스틱 스냅백이 있습니다. 꼭대기에 수양 뿔이 수놓여 있고 모토 스타일로 짜여진 패치와 자수가 장식되어 있습니다.'),
-       (83, 5, '01120108', 'PALMES WRITTEN WOOL 6-PANEL CAP', '01120108.jpg', 149000, '앞면에 자수가 있는 6패널 구조입니다. 후면 클로저로 사이즈 조절이 가능합니다.'),
-       (84, 5, 'FB5367-063', 'NIKE U FLY CAP U FB TCH FLC L', 'FB5367-063.jpg', 39000, '나이키 플라이 캡을 쓰고 테크 플리스의 가볍고 따뜻한 감각을 느껴보세요. 2013년부터 많은 사랑을 받아온 소재와 아이코닉한 디테일을 그대로 적용했습니다. 또한 5패널 캠프 모자 디자인은 로우 프로파일 스타일을 선사하며, 여유로운 주말의 휴식에서 이른 아침의 하이킹에 이르기까지 모든 활동에 적합합니다.'),
+VALUES (81, 5, 'FUAR90014', 'ARIES FAST FOOD TRUCKER CAP', 'FUAR90014.jpg', 95000,
+        '메쉬 패널과 조절 가능한 플라스틱 스냅백이 있는 클래식 트러커 캡입니다. 앞면에 퍼프 프린트의 아카이브 Aries Fast Food 그래픽이 있고 뒷면에 ​​Aries 그리스 자수가 있습니다.'),
+       (82, 5, 'FUAR90005', 'ARIES MOTO CORDUROY CAP', 'FUAR90005.jpg', 144000,
+        '100% 면 코듀로이 소재의 남녀공용 5패널 캡으로 조절 가능한 플라스틱 스냅백이 있습니다. 꼭대기에 수양 뿔이 수놓여 있고 모토 스타일로 짜여진 패치와 자수가 장식되어 있습니다.'),
+       (83, 5, '01120108', 'PALMES WRITTEN WOOL 6-PANEL CAP', '01120108.jpg', 149000,
+        '앞면에 자수가 있는 6패널 구조입니다. 후면 클로저로 사이즈 조절이 가능합니다.'),
+       (84, 5, 'FB5367-063', 'NIKE U FLY CAP U FB TCH FLC L', 'FB5367-063.jpg', 39000,
+        '나이키 플라이 캡을 쓰고 테크 플리스의 가볍고 따뜻한 감각을 느껴보세요. 2013년부터 많은 사랑을 받아온 소재와 아이코닉한 디테일을 그대로 적용했습니다. 또한 5패널 캠프 모자 디자인은 로우 프로파일 스타일을 선사하며, 여유로운 주말의 휴식에서 이른 아침의 하이킹에 이르기까지 모든 활동에 적합합니다.'),
        (85, 5, 'VD7033-111', 'VANDY THE PINK PATTERN KHAKI TRUCKER', 'VD7033-111.jpg', 95000, NULL),
        (86, 5, 'CTAR90000', 'ARIES NO PROBLEMO CAP', 'CTAR90000.jpg', 99000, NULL),
-       (87, 5, '3SHA7OF', 'CHILL SPORTS CLUB 7ORIGINAL 5 PANEL LOGO FLAP', '3SHA7OF.jpg', 68000, '뉴 패러다임의 5패널 나일론 플랩 테크 캡입니다. UV 100% 프로텍트의 플랩이 특징인 캡으로 플랩과 볼마커는 탈부착이 가능합니다. 스트레치 코드로 모자 사이즈를 조절할 수 있으며, 여분의 스트레치 코드를 제공합니다. 플랩에는 CHILL SPORTS CLUB 로고 스카시 디지털 프린팅이 있습니다. 모자와 플랩의 원단차이로 칼라의 차이가 조금 있습니다.'),
-       (88, 5, '3SHASL', 'CHILL SPORTS CLUB 6PANEL SCRIPT LOGO', '3SHASL.jpg', 48000, '뉴 패러다임의 6패널 프리미엄 코튼 볼캡입니다. 스트레치 코드로 모자 사이즈를 조절할 수 있으며, 여분의 스트레치 코드를 제공합니다. 볼마커는 탈부착이 가능합니다.'),
-       (89, 5, 'FJXKA35954', 'FJ X KASINA CAMP CAP', 'FJXKA35954.jpg', 78000, '스트리트패션 브랜드 KASINA(카시나)의 레트로한 무드와 FJ 1857년 헤리티지 감성이 만나 탄생한 FJ X KASINA 콜라보레이션 캠프 캡입니다. 스트리트 캐주얼 느낌이 물씬 나는 캠프 캡 형태의 모양으로 젊고 트렌디한 연출이 가능합니다. 콜라보레이션 제품에만 적용된 FJ x Kasina 로고로 디자인 포인트를 주었습니다.'),
-       (90, 5, 'STAR90000', 'ARIES NO PROBLEMO CAP', 'STAR90000.jpg', 89000, '가죽 백 스트랩이 있는 100% 면 드릴로 만든 6 패널 캡입니다. 앞면에는 No Problemo 3D 자수가, 뒷면에는 고딕 A 자수가 있습니다.'),
+       (87, 5, '3SHA7OF', 'CHILL SPORTS CLUB 7ORIGINAL 5 PANEL LOGO FLAP', '3SHA7OF.jpg', 68000,
+        '뉴 패러다임의 5패널 나일론 플랩 테크 캡입니다. UV 100% 프로텍트의 플랩이 특징인 캡으로 플랩과 볼마커는 탈부착이 가능합니다. 스트레치 코드로 모자 사이즈를 조절할 수 있으며, 여분의 스트레치 코드를 제공합니다. 플랩에는 CHILL SPORTS CLUB 로고 스카시 디지털 프린팅이 있습니다. 모자와 플랩의 원단차이로 칼라의 차이가 조금 있습니다.'),
+       (88, 5, '3SHASL', 'CHILL SPORTS CLUB 6PANEL SCRIPT LOGO', '3SHASL.jpg', 48000,
+        '뉴 패러다임의 6패널 프리미엄 코튼 볼캡입니다. 스트레치 코드로 모자 사이즈를 조절할 수 있으며, 여분의 스트레치 코드를 제공합니다. 볼마커는 탈부착이 가능합니다.'),
+       (89, 5, 'FJXKA35954', 'FJ X KASINA CAMP CAP', 'FJXKA35954.jpg', 78000,
+        '스트리트패션 브랜드 KASINA(카시나)의 레트로한 무드와 FJ 1857년 헤리티지 감성이 만나 탄생한 FJ X KASINA 콜라보레이션 캠프 캡입니다. 스트리트 캐주얼 느낌이 물씬 나는 캠프 캡 형태의 모양으로 젊고 트렌디한 연출이 가능합니다. 콜라보레이션 제품에만 적용된 FJ x Kasina 로고로 디자인 포인트를 주었습니다.'),
+       (90, 5, 'STAR90000', 'ARIES NO PROBLEMO CAP', 'STAR90000.jpg', 89000,
+        '가죽 백 스트랩이 있는 100% 면 드릴로 만든 6 패널 캡입니다. 앞면에는 No Problemo 3D 자수가, 뒷면에는 고딕 A 자수가 있습니다.'),
        (91, 5, '8AQ001', 'OSTRYA SWIRL MERINO BEANIE', '8AQ001.jpg', 92000, '메리노 울 혼방의 가볍고 따뜻한 비니'),
        (92, 5, '8AQ002', 'OSTRYA NORDIC KNIT BEANIE', '8AQ002.jpg', 79000, '털실 방울이 매력적인 빈티지 노르딕 니트 비니.'),
-       (93, 5, 'RBUW202YA', 'ROA HIKING BEANIE LOGO', 'RBUW202YA.jpg', 98000, '콘트라스트 니트 소재의 Roa 메리노 울 비니. 울 섬유의 자연적인 흡수 능력은 습한 환경에서도 편안하고 건조한 따뜻함과 상쾌함을 선사합니다.'),
+       (93, 5, 'RBUW202YA', 'ROA HIKING BEANIE LOGO', 'RBUW202YA.jpg', 98000,
+        '콘트라스트 니트 소재의 Roa 메리노 울 비니. 울 섬유의 자연적인 흡수 능력은 습한 환경에서도 편안하고 건조한 따뜻함과 상쾌함을 선사합니다.'),
        (94, 5, 'FB6529-010', 'NIKE U NK PEAK BEANIE TC SWSH L QS', 'FB6529-010.jpg', 33000, NULL),
-       (95, 5, 'PACC11K007', 'RASSVET MEN BIG LOGO BEANIE KNIT', 'PACC11K007.jpg', 98000, '아늑하고 편안하게 제작된 Rassvet(PACCBET) 빅 로고 비니는 야외에서 보내는 추운 날에 적합합니다. 착용하는 동안 머리를 감싸는 부드러운 울 혼방 구조와 맞춤형 로고 자수가 전면을 대담한 라인워크로 장식합니다.'),
-       (96, 5, 'PACC11K005', 'RASSVET MEN LOGO BEANIE KNIT', 'PACC11K005.jpg', 72000, '러시아 스케이터 브랜드 Rassvet은 클래식한 스트리트웨어 실루엣에 소비에트 미학을 섬세하게 결합한 디자인을 선보입니다. 로고 패치 비니 햇은 니트 직조의 기능성 혼방 소재로 제작되었으며, 라운드 크라운, 접어 올린 브림, 앞면 로고 패치와 전체 그래픽 프린트가 특징입니다.'),
-       (97, 5, 'ERL05K056', 'ERL UNISEX GRADIENT BEANIE KNIT', 'ERL05K056.jpg', 180000, 'ERL의 UNISEX GRADIENT BEANIE 입니다. 그라데이션된 컬러와 높은 보온성의 모헤어 소재로 제작되었으며, 전면 ERL 로고로 마무리 하였습니다.'),
-       (98, 5, '00730068', 'PALMES HORNE REVERSIBLE BUCKET HAT', '00730068.jpg', 175000, '대비 스티칭과 루프에 라벨 포인트가 있는 리버서블 버킷 햇 입니다. 재활용 폴리에스터 65%와 유기농 면 35%으로 제작되었습니다.'),
-       (99, 5, 'FJXKA35952', 'FJ X KASINA HAT', 'FJXKA35952.jpg', 108000, '스트리트패션 브랜드 KASINA(카시나)의 레트로한 무드와 FJ 1857년 헤리티지 감성이 만나 탄생한 FJ X KASINA 콜라보레이션 햇 입니다. 경량소재의 햇으로 가볍고 청량한 느낌의 소재를 사용하여 여름까지 오래 착용이 가능합니다. 길게 늘어진 스트랩으로 스트리트 감성을 담은 디자인에 콜라보레이션 제품에만 적용된 FJ x Kasina 로고가 포인트입니다. 내부 머리둘레 사이즈 조절이 가능합니다.'),
-       (100, 5, 'EX22SP07', 'EXTRAORDINARY PATTERN BEANIE', 'EX22SP07.jpg', 32000, '해당 제품은 브랜드 사정에 따라 3월 22일부터 순차배송 될 예정입니다.');
+       (95, 5, 'PACC11K007', 'RASSVET MEN BIG LOGO BEANIE KNIT', 'PACC11K007.jpg', 98000,
+        '아늑하고 편안하게 제작된 Rassvet(PACCBET) 빅 로고 비니는 야외에서 보내는 추운 날에 적합합니다. 착용하는 동안 머리를 감싸는 부드러운 울 혼방 구조와 맞춤형 로고 자수가 전면을 대담한 라인워크로 장식합니다.'),
+       (96, 5, 'PACC11K005', 'RASSVET MEN LOGO BEANIE KNIT', 'PACC11K005.jpg', 72000,
+        '러시아 스케이터 브랜드 Rassvet은 클래식한 스트리트웨어 실루엣에 소비에트 미학을 섬세하게 결합한 디자인을 선보입니다. 로고 패치 비니 햇은 니트 직조의 기능성 혼방 소재로 제작되었으며, 라운드 크라운, 접어 올린 브림, 앞면 로고 패치와 전체 그래픽 프린트가 특징입니다.'),
+       (97, 5, 'ERL05K056', 'ERL UNISEX GRADIENT BEANIE KNIT', 'ERL05K056.jpg', 180000,
+        'ERL의 UNISEX GRADIENT BEANIE 입니다. 그라데이션된 컬러와 높은 보온성의 모헤어 소재로 제작되었으며, 전면 ERL 로고로 마무리 하였습니다.'),
+       (98, 5, '00730068', 'PALMES HORNE REVERSIBLE BUCKET HAT', '00730068.jpg', 175000,
+        '대비 스티칭과 루프에 라벨 포인트가 있는 리버서블 버킷 햇 입니다. 재활용 폴리에스터 65%와 유기농 면 35%으로 제작되었습니다.'),
+       (99, 5, 'FJXKA35952', 'FJ X KASINA HAT', 'FJXKA35952.jpg', 108000,
+        '스트리트패션 브랜드 KASINA(카시나)의 레트로한 무드와 FJ 1857년 헤리티지 감성이 만나 탄생한 FJ X KASINA 콜라보레이션 햇 입니다. 경량소재의 햇으로 가볍고 청량한 느낌의 소재를 사용하여 여름까지 오래 착용이 가능합니다. 길게 늘어진 스트랩으로 스트리트 감성을 담은 디자인에 콜라보레이션 제품에만 적용된 FJ x Kasina 로고가 포인트입니다. 내부 머리둘레 사이즈 조절이 가능합니다.'),
+       (100, 5, 'EX22SP07', 'EXTRAORDINARY PATTERN BEANIE', 'EX22SP07.jpg', 32000,
+        '해당 제품은 브랜드 사정에 따라 3월 22일부터 순차배송 될 예정입니다.');
 
 
-#
+
+# 3. 고객 50명
+DESC Customers;
+
+INSERT INTO Customers (Name, EmailAddress, Password)
+VALUES ('Seungjo', 'f1v3@kakao.com', 'seungjo1'),
+       ('Jeongwoo', 'jeongwoo@naver.com', 'jeongwoo2'),
+       ('Damho', 'damho@gmail.com', 'damho3'),
+       ('Jaehoon', 'jaehoon@naver.com', 'jaehoon4'),
+       ('Yongjun', 'yongjun@gmail.com', 'yongjun5'),
+       ('Jessica', 'jessica@example.com', 'password6'),
+       ('Daniel', 'daniel@example.com', 'password7'),
+       ('Sophia', 'sophia@example.com', 'password8'),
+       ('Matthew', 'matthew@example.com', 'password9'),
+       ('Olivia', 'olivia@example.com', 'password10'),
+       ('Andrew', 'andrew@example.com', 'password11'),
+       ('Ava', 'ava@example.com', 'password12'),
+       ('William', 'william@example.com', 'password13'),
+       ('Isabella', 'isabella@example.com', 'password14'),
+       ('Joseph', 'joseph@example.com', 'password15'),
+       ('Mia', 'mia@example.com', 'password16'),
+       ('James', 'james@example.com', 'password17'),
+       ('Abigail', 'abigail@example.com', 'password18'),
+       ('Benjamin', 'benjamin@example.com', 'password19'),
+       ('Grace', 'grace@example.com', 'password20'),
+       ('Henry', 'henry@example.com', 'password21'),
+       ('Charlotte', 'charlotte@example.com', 'password22'),
+       ('David', 'david@example.com', 'password23'),
+       ('Elizabeth', 'elizabeth@example.com', 'password24'),
+       ('Alexander', 'alexander@example.com', 'password25'),
+       ('Victoria', 'victoria@example.com', 'password26'),
+       ('Christopher', 'christopher@example.com', 'password27'),
+       ('Scarlett', 'scarlett@example.com', 'password28'),
+       ('Ryan', 'ryan@example.com', 'password29'),
+       ('Chloe', 'chloe@example.com', 'password30'),
+       ('Samuel', 'samuel@example.com', 'password31'),
+       ('Natalie', 'natalie@example.com', 'password32'),
+       ('Ethan', 'ethan@example.com', 'password33'),
+       ('Lily', 'lily@example.com', 'password34'),
+       ('William', 'william@example.com', 'password35'),
+       ('Avery', 'avery@example.com', 'password36'),
+       ('Daniel', 'daniel@example.com', 'password37'),
+       ('Harper', 'harper@example.com', 'password38'),
+       ('Matthew', 'matthew@example.com', 'password39'),
+       ('Sofia', 'sofia@example.com', 'password40'),
+       ('Alexander', 'alexander@example.com', 'password41'),
+       ('Amelia', 'amelia@example.com', 'password42'),
+       ('Joseph', 'joseph@example.com', 'password43'),
+       ('Mila', 'mila@example.com', 'password44'),
+       ('James', 'james@example.com', 'password45'),
+       ('Ella', 'ella@example.com', 'password46'),
+       ('David', 'david@example.com', 'password47'),
+       ('Aria', 'aria@example.com', 'password48'),
+       ('Benjamin', 'benjamin@example.com', 'password49'),
+       ('Emma', 'emma@example.com', 'password50');
+
+# 4. 쇼핑몰에 사용될 쿼리문
+
+## 4-1. 고객이 로그인을 한 경우
+## 4-2. 고객이 장바구니에 상품을 담는 경우
+## 4-3. 고객이 상품을 주문한 경우
+## 4-4. 고객이 리뷰를 작성한 경우
