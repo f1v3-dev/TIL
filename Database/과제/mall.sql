@@ -1,8 +1,90 @@
-show databases;
+DROP DATABASE IF EXISTS DatamotionMall;
 
-use DatamotionMall;
+CREATE DATABASE IF NOT EXISTS DatamotionMall;
 
-show tables;
+USE DatamotionMall;
+
+CREATE TABLE Categories
+(
+    CategoryID   INT auto_increment,
+    CategoryName varchar(50),
+
+    CONSTRAINT pk_Categories PRIMARY KEY (CategoryID)
+);
+
+CREATE TABLE Products
+(
+    ProductID    INT auto_increment,
+    CategoryID   INT,
+    ModelNumber  nvarchar(10),
+    ModelName    nvarchar(120),
+    ProductImage nvarchar(30),
+    UnitCost     decimal(15),
+    Description  text,
+
+    CONSTRAINT pk_Products PRIMARY KEY (ProductID),
+    CONSTRAINT fk_Products_Categories FOREIGN KEY (CategoryID) REFERENCES Categories (CategoryID)
+);
+
+
+CREATE TABLE Customers
+(
+    CustomerID   int auto_increment,
+    Name         varchar(10),
+    EmailAddress varchar(100) UNIQUE,
+    Password     varchar(12),
+
+    CONSTRAINT pk_Customer PRIMARY KEY (CustomerID)
+);
+
+CREATE TABLE Reviews
+(
+    ReviewID   int auto_increment,
+    ProductID  int,
+    CustomerID int,
+    Rating     int,
+    Comments   text,
+
+    CONSTRAINT pk_ReviewID PRIMARY KEY (ReviewID),
+    CONSTRAINT fk_Review_Products FOREIGN KEY (ProductID) REFERENCES Products (ProductID),
+    CONSTRAINT fk_Review_Customer FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID)
+);
+
+CREATE TABLE Orders
+(
+    OrderID    int auto_increment,
+    CustomerID int,
+    OrderDate  Datetime,
+    ShipDate   Datetime,
+
+    CONSTRAINT pk_Orders PRIMARY KEY (OrderID),
+    CONSTRAINT fk_Orders_CustomerID FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID)
+);
+
+CREATE TABLE OrderDetails
+(
+    OrderID   int,
+    ProductID int,
+    Quantity  int,
+    UnitCost  decimal(15),
+
+    CONSTRAINT pk_OrderDetails PRIMARY KEY (OrderID, ProductID),
+    CONSTRAINT fk_OrderDetails_Orders FOREIGN KEY (OrderID) REFERENCES Orders (OrderID),
+    CONSTRAINT fk_OrderDetails_Products FOREIGN KEY (ProductID) REFERENCES Products (ProductID)
+);
+
+CREATE TABLE ShoppingCart
+(
+    RecordID     int auto_increment,
+    CartID       nvarchar(150),
+    Quantity     int,
+    ProductID    int,
+    DateCreated Datetime DEFAULT NOW(),
+
+    CONSTRAINT pk_RecordID PRIMARY KEY (RecordID),
+    CONSTRAINT fk_cart_ProductID FOREIGN KEY (ProductID) REFERENCES Products (ProductID)
+);
+
 
 # 1. Category - 5개
 INSERT INTO Categories(CategoryName)
@@ -16,9 +98,6 @@ desc products;
 
 # 2. Product Table에 튜플이 100개
 ## 2-1. Top 상품 20개 insert
-INSERT INTO Products
-VALUES (15, 1, 'DQ5843-536', 'NIKE AS W ACG WLF TREE TOP MID', 'DQ5843-536.jpg', 155000,
-        '문명에서 수 마일 떨어진 침낭에서 일어나거나, 이른 아침 러닝 준비를 위해 알람 시계를 끄고 일어날 때 이 편안한 레이어를 착용해 보세요. 편안한 풀오버 핏과 모크넥이 룩에 즉각적인 보온성을 더해주어 힘차게 하루를 시작할 수 있습니다. 매우 부드럽고 레이어링에 안성맞춤인 재생 소재를 사용해 모험의 난관을 이겨내기 좋은 플리스를 제작했습니다.');
 INSERT INTO Products
 VALUES (1, 1, 'DQ5762-104', 'Nike AS W NSW PHNX FLC OOS CREW', 'DQ5762-104.jpg', 95000,
         '강렬하고 포근한 감성으로 여러분의 플리스 컬렉션에 변화를 주세요. 볼륨감 있는 핏과 과감한 골지 디테일이 돋보이는 피닉스 플리스 스웻셔츠로, 결코 심심하지 않은 룩을 연출합니다.'),
@@ -43,6 +122,8 @@ VALUES (1, 1, 'DQ5762-104', 'Nike AS W NSW PHNX FLC OOS CREW', 'DQ5762-104.jpg',
         '브러쉬드 저지 플리스 소재의 남녀공용 크루넥 스웨트셔츠. 옆면이 브러시 처리되어 있고 가슴 부분에 Aries temple 로고가 스크린 인쇄되어 있습니다.'),
        (14, 1, 'DQ5808-247', 'NIKE AS W ACG TF TUFF FLC HOODIE', 'DQ5808-247.jpg', 139000,
         '천천히 여유를 즐길 때나 한계를 시험해 볼 때나 편안함은 가장 중요한 승부수입니다. 즐겨 입는 티셔츠와 같이 부드럽고 여유로운 후디를 입고 일상의 모험을 즐겨보세요.'),
+       (15, 1, 'DQ5843-536', 'NIKE AS W ACG WLF TREE TOP MID', 'DQ5843-536.jpg', 155000,
+        '문명에서 수 마일 떨어진 침낭에서 일어나거나, 이른 아침 러닝 준비를 위해 알람 시계를 끄고 일어날 때 이 편안한 레이어를 착용해 보세요. 편안한 풀오버 핏과 모크넥이 룩에 즉각적인 보온성을 더해주어 힘차게 하루를 시작할 수 있습니다. 매우 부드럽고 레이어링에 안성맞춤인 재생 소재를 사용해 모험의 난관을 이겨내기 좋은 플리스를 제작했습니다.'),
        (16, 1, 'FD8761-072', 'NIKE AS U ACG TF CREW FLC GX', 'FD8761-072.jpg', 135000,
         '전설적인 아티스트 Ralph Steadman의 프린트 그래픽이 이 넓고 중량급 ACG 플리스 크루의 앞면과 뒷면을 우아하게 장식합니다. Nike Therma-FIT 기술은 신체의 자연적인 열을 관리하여 추운 날씨에도 따뜻하게 유지하도록 도와줍니다.'),
        (17, 1, 'DQ5762-010', 'NIKE AS W NSW PHNX FLC OOS CREW', 'DQ5762-010.jpg', 95000,
@@ -215,7 +296,6 @@ VALUES (81, 5, 'FUAR90014', 'ARIES FAST FOOD TRUCKER CAP', 'FUAR90014.jpg', 9500
         '해당 제품은 브랜드 사정에 따라 3월 22일부터 순차배송 될 예정입니다.');
 
 
-
 # 3. 고객 50명
 DESC Customers;
 
@@ -223,12 +303,12 @@ INSERT INTO Customers (Name, EmailAddress, Password)
 VALUES ('Seungjo', 'f1v3@kakao.com', 'seungjo1'),
        ('Jeongwoo', 'jeongwoo@naver.com', 'jeongwoo2'),
        ('Damho', 'damho@gmail.com', 'damho3'),
-       ('Jaehoon', 'jaehoon@naver.com', 'jaehoon4'),
+       ('Jaehun', 'jaehun@naver.com', 'jaehoon4'),
        ('Yongjun', 'yongjun@gmail.com', 'yongjun5'),
        ('Jessica', 'jessica@example.com', 'password6'),
-       ('Daniel', 'daniel@example.com', 'password7'),
+       ('Dean', 'dean@example.com', 'password7'),
        ('Sophia', 'sophia@example.com', 'password8'),
-       ('Matthew', 'matthew@example.com', 'password9'),
+       ('Minho', 'minho@example.com', 'password9'),
        ('Olivia', 'olivia@example.com', 'password10'),
        ('Andrew', 'andrew@example.com', 'password11'),
        ('Ava', 'ava@example.com', 'password12'),
@@ -244,9 +324,9 @@ VALUES ('Seungjo', 'f1v3@kakao.com', 'seungjo1'),
        ('Charlotte', 'charlotte@example.com', 'password22'),
        ('David', 'david@example.com', 'password23'),
        ('Elizabeth', 'elizabeth@example.com', 'password24'),
-       ('Alexander', 'alexander@example.com', 'password25'),
+       ('Alex', 'alex@example.com', 'password25'),
        ('Victoria', 'victoria@example.com', 'password26'),
-       ('Christopher', 'christopher@example.com', 'password27'),
+       ('John', 'john@example.com', 'password27'),
        ('Scarlett', 'scarlett@example.com', 'password28'),
        ('Ryan', 'ryan@example.com', 'password29'),
        ('Chloe', 'chloe@example.com', 'password30'),
@@ -254,7 +334,7 @@ VALUES ('Seungjo', 'f1v3@kakao.com', 'seungjo1'),
        ('Natalie', 'natalie@example.com', 'password32'),
        ('Ethan', 'ethan@example.com', 'password33'),
        ('Lily', 'lily@example.com', 'password34'),
-       ('William', 'william@example.com', 'password35'),
+       ('Willy', 'Willy@example.com', 'password35'),
        ('Avery', 'avery@example.com', 'password36'),
        ('Daniel', 'daniel@example.com', 'password37'),
        ('Harper', 'harper@example.com', 'password38'),
@@ -262,18 +342,170 @@ VALUES ('Seungjo', 'f1v3@kakao.com', 'seungjo1'),
        ('Sofia', 'sofia@example.com', 'password40'),
        ('Alexander', 'alexander@example.com', 'password41'),
        ('Amelia', 'amelia@example.com', 'password42'),
-       ('Joseph', 'joseph@example.com', 'password43'),
+       ('Jessi', 'jessi@example.com', 'password43'),
        ('Mila', 'mila@example.com', 'password44'),
-       ('James', 'james@example.com', 'password45'),
+       ('Jenny', 'jenny@example.com', 'password45'),
        ('Ella', 'ella@example.com', 'password46'),
-       ('David', 'david@example.com', 'password47'),
+       ('Dave', 'dave@example.com', 'password47'),
        ('Aria', 'aria@example.com', 'password48'),
-       ('Benjamin', 'benjamin@example.com', 'password49'),
+       ('Lee', 'lee@example.com', 'password49'),
        ('Emma', 'emma@example.com', 'password50');
 
 # 4. 쇼핑몰에 사용될 쿼리문
+# [4-1]. 고객이 로그인을 한 경우 (아이디 = EmailAddress, 비밀번호 = Password)
+# 아이디가 f1v3@kakao.com, 비밀번호는 seungjo1인 회원
+SELECT *
+FROM Customers
+WHERE EmailAddress = 'f1v3@kakao.com'
+  AND Password = 'seungjo1';
 
-## 4-1. 고객이 로그인을 한 경우
-## 4-2. 고객이 장바구니에 상품을 담는 경우
-## 4-3. 고객이 상품을 주문한 경우
-## 4-4. 고객이 리뷰를 작성한 경우
+# 아이디가 jessi@example.com, 비밀번호는 password43인 회원
+SELECT *
+FROM Customers
+WHERE EmailAddress = 'jessi@example.com'
+  AND Password = 'password43';
+
+# [4-2]. 고객이 장바구니에 상품을 담는 경우
+DESC ShoppingCart;
+
+# CartID -> CustomerID (seungjo)
+# 1번 회원이 93번의 상품을 1개 담은 경우
+INSERT INTO ShoppingCart (CartID, Quantity, ProductID, DateCreated)
+VALUES ('1', 1, 93, NOW());
+
+INSERT INTO ShoppingCart (CartID, Quantity, ProductID, DateCreated)
+VALUES ('1', 1, 17, NOW());
+
+# 비회원일 경우 -> UUID(Random)로 하면 될 것 같은데 잘 모르겠음. (참고: https://www.mysqltutorial.org/mysql-uuid/)
+# INSERT INTO ShoppingCart (CartID, Quantity, ProductID, DateCreated)
+# VALUES (UUID(), 2, 84, NOW());
+
+# 4번 회원이 83번 상품을 2개 담은 경우
+INSERT INTO ShoppingCart (CartID, Quantity, ProductID, DateCreated)
+VALUES ('4', 2, 83, NOW());
+
+# 1번 회원의 장바구니에 93번 상품의 수량을 3개로 변경한 경우
+UPDATE ShoppingCart
+SET Quantity = 3
+WHERE CartID = '1'
+  AND ProductID = 93;
+
+SELECT *
+FROM ShoppingCart;
+
+
+# # 1번 회원의 장바구니에 93번 상품을 삭제한 경우
+# DELETE
+# FROM ShoppingCart
+# WHERE CartID = '1'
+#   AND ProductID = 93;
+
+# [4-3]. 고객이 상품을 주문한 경우 (주문 (ShipDate = 주문 예정일? 아니면 실제 도착일?)
+
+# 1번 회원이 주문한 경우
+INSERT INTO Orders
+VALUES (1, 1, NOW(), NULL);
+
+# 도착일은 3일 후로 설정
+UPDATE Orders
+SET ShipDate = DATE_ADD(OrderDate, INTERVAL 3 DAY)
+WHERE OrderID = 1;
+
+# 4번 회원이 주문한 경우
+INSERT INTO Orders
+VALUES (2, 4, NOW(), DATE_ADD(OrderDate, INTERVAL 5 DAY));
+
+# [4-4]. 주문 상세
+# 1번 회원의 주문 상세
+INSERT INTO OrderDetails (OrderID, ProductID, Quantity, UnitCost)
+VALUES (1, 93, 3, 98000);
+
+
+# 4번 회원의 주문 상세
+INSERT INTO OrderDetails (OrderID, ProductID, Quantity, UnitCost)
+VALUES (2, 83, 2, 149000);
+
+## [4-5]. 고객이 리뷰를 작성한 경우
+INSERT INTO Reviews (ProductID, CustomerID, Rating, Comments)
+VALUES (18, 1, 5, '한글날을 기념해서 나온 옷이라길래 사봤는데 정말 마음에 드네요!'),
+       (25, 2, 4, '추운 겨울에 입으려고 샀어요 ㅎㅎ'),
+       (84, 4, 1, '나이키 믿고 샀는데 왜 이럼?'),
+       (30, 29, 5, '측면에 있는 포인트가 정말 매력적입니다. 추천해요!'),
+       (58, 3, 5, '잘 입겠습니다. 빠르게 배송와서 좋네요'),
+       (98, 5, 5, '이쁜 모자 잘 받았습니다.'),
+       (84, 32, 5, '믿고사는 나이키'),
+       (84, 50, 4, '다 좋은데 배송이 너무 느리네요..');
+
+
+# [4-6]. 장바구니에 담은 물건을 주문한 경우
+# 6번 회원이 13번 상품 1개, 5번 상품 2개, 86번 상품 1개를 장바구니에 담음
+INSERT INTO Orders
+VALUES (4, 6, NOW(), DATE_ADD(OrderDate, INTERVAL 3 DAY));
+
+SELECT *
+FROM Orders;
+
+INSERT INTO ShoppingCart (CartID, Quantity, ProductID, DateCreated)
+VALUES ('6', 1, 13, NOW()),
+       ('6', 2, 5, NOW()),
+       ('6', 1, 86, NOW());
+
+INSERT INTO OrderDetails
+SELECT (SELECT OrderID
+        FROM Orders
+        WHERE CustomerID = 6), ProductID, Quantity, (SELECT UnitCost
+                                        FROM Products
+                                        WHERE ProductID = ShoppingCart.ProductID)
+FROM ShoppingCart
+WHERE CartID = '6';
+
+
+SELECT *
+FROM OrderDetails;
+
+# 38번 회원이 28번 상품 2개를 장바구니에 담음
+INSERT INTO ShoppingCart (CartID, Quantity, ProductID, DateCreated)
+VALUES ('38', 2, 28, NOW());
+
+# 38번 회원이 주문
+INSERT INTO Orders
+VALUES (3, 38, NOW(), DATE_ADD(OrderDate, INTERVAL 3 DAY));
+
+# 주문 상세에 대한 정보는 장바구니에서 가져온다.
+INSERT INTO OrderDetails (OrderID, ProductID, Quantity, UnitCost)
+VALUES (3, 28, 2, (SELECT UnitCost
+                   FROM Products
+                   WHERE ProductID = 28));
+
+
+# [4-7]. 초기 홈페이지 상품 구성
+# 이름순으로 정렬 한다면 (오름차순)
+SELECT *
+FROM Products
+ORDER BY ModelName ASC;
+
+## 가격순으로 정렬한다면 (오름차순)
+SELECT *
+FROM Products
+ORDER BY UnitCost ASC;
+
+
+# [4-8]. 카테고리별 상품 보여주기
+# 상의 카데고리인 상품만 가져오고 가격이 낮은 순으로 정렬해서 보여주기
+SELECT *
+FROM Products AS P JOIN Categories AS C
+    ON  P.CategoryID = C.CategoryID
+WHERE C.CategoryName = 'TOP'
+ORDER BY P.UnitCost ASC;
+
+# 아우터 카테고리인 상품만 가져오고 모델명을 기준으로 내림차순으로 정렬
+SELECT *
+FROM Products AS P JOIN Categories AS C
+    ON P.CategoryID = C.CategoryID
+WHERE C.CategoryName = 'OUTER'
+ORDER BY P.ModelName DESC;
+
+# [4-9]. 84번 상품에 대한 모든 리뷰 보여주기
+SELECT *
+FROM Reviews
+WHERE ProductID = 84;
