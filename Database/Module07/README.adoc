@@ -1,0 +1,83 @@
+= Model 07: 보안과 뷰
+
+**_데이터베이스 파일 형식_**
+
+* B-tree (InnoDB) : 정렬
+* ISAM : 정렬, 인덱스
+* B+tree : 정렬, 인덱스
+* Heap
+* Hash : Equality Search에만 특화되어있음.
+
+
+
+== 데이터베이스 보안 개요 ==
+* 안전한 데이터베이스 응용 설계
+** 보안(Security) : 정보가 권한 없는 사용자에게 누출되어서는 안된다.
+** 무결성(Integrity) : 권한 있는 사용자에게만 데이터의 수정 허용
+** 가용성(Availability) : 권한 있는 사용자의 접근이 제한되어서는 안된다.
+
+* **RBAC(Role Based Access Control)**
+
+== User 객체
+* 모든 권한을 가지는 관리 사용자 존재
+* 데이터베이스의 사용자를 생성/관리 (grant, deny, revoke)
+
+[source, sql]
+----
+CREATE USER <User ID> IDENTIFIED BY <Password>;
+----
+
+== 접근 제어
+* 대부분의 DB 사용자들은 필요한 데이터에만 접근
+** 재량 접근 제어 (Discretionary Access Control) : 특권(Privileges)이라는 접근 권한의 개념 기반, 사용자에게 특권을 부여하는 방식 사용
+** 필수 접근 제어 (Mandatory Access Control) : 시스템 전반에 걸친 정책 사용 -> 모든 데이터베이스 개체에 비밀 등급을 부여, 사용자마다 허가 등급이 존재
+
+
+=== 재량 접근 제어
+* GRANT : 사용자에게 기반 테이블이나 뷰에 대한 특권 부여
+[source, sql]
+----
+GRANT <특권> ON <개체> TO <사용자> [WITH GRANT OPTIONS]
+----
+
+* REVOKE : 사용자에게 부여된 특권 허가를 취소
+[source, sql]
+----
+REVOKE <특권> ON <개체> FROM <사용자> [CASCADE]
+----
+
+=== 특권 (Privileges)
+* 특정 조치 또는 작업을 실행하는데 필요한 권한
+
+== 뷰 (View)
+* RDBMS의 매우 강력한 기능의 하나
+* 접근 제어 향상, 논리적 데이터 독립성 제공
+** 데이터베이스 개념 스키마의 변경을 외부 사용자에게 감추는 역할
+** 보안 관점에서만 작성된 개체 형태는 아니다
+* 테이블과 같은 방식의 동작 but, 튜플들이 실제로 저장된 것이 아니다.
+* Query를 수행하거나, 다른 뷰를 생성할 때 기존 뷰는 테이블과 같은 형태로 사용할 수 있다.
+
+
+== 뷰 생성과 삭제
+* 뷰 생성
+
+[source, sql]
+----
+CREATE VIEW <View Name>
+AS
+<Query>
+----
+
+* 뷰 삭제
+
+[source, sql]
+----
+DROP VIEW <View Name>
+----
+
+> 주의, Join을 통해서 View를 생성할 때 똑같은 Column이 존재하면 에러가 발생함.
+
+* View - INSERT가 되기는 하지만, JOIN으로 생성된 View는 INSERT가 되지 않는다.
+** 즉, View는 데이터의 통로, CREATE View를 부른 테이블의 제약조건을 지키면 INSERT가 가능
+
+
