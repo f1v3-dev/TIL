@@ -84,3 +84,19 @@ CREATE TABLE ShoppingCart
     CONSTRAINT pk_RecordID PRIMARY KEY (RecordID),
     CONSTRAINT fk_cart_ProductID FOREIGN KEY (ProductID) REFERENCES Products (ProductID)
 );
+
+INSERT INTO Categories(CategoryName)
+VALUES ('Top'),
+       ('Pants'),
+       ('Shoes'),
+       ('Outer'),
+       ('Hat');
+
+SELECT *
+FROM Categories;
+
+INSERT INTO Products VALUES(1, 1, 'DQ5762-104', 'Nike AS W NSW PHNX FLC OOS CREW', 'DQ5762-104.jpg', 95000, '강렬하고 포근한 감성으로 여러분의 플리스 컬렉션에 변화를 주세요. 볼륨감 있는 핏과 과감한 골지 디테일이 돋보이는 피닉스 플리스 스웻셔츠로, 결코 심심하지 않은 룩을 연출합니다.'),
+                           (2, 1, 'DX1362-063', 'NIKE AS M NK SOLO SWSH FLC CRW', 'DX1362-063.jpg', 109000, '스우시의 힘과 단순함을 예찬합니다. 따뜻한 플리스 크루로 어깨, 가슴, 몸체의 공간이 넉넉해 편안하고 여유로우며 향수를 불러일으키는 스타일을 연출합니다. 신축성 있는 골지 오프닝이 움직이는 동안 크루를 제자리에 고정해주며 온기를 가둬 추운 날씨에도 따뜻함을 유지합니다.'),
+                           (3, 1, 'FD9850-010', 'NIKE AS U ACG TF CREW FLC GX', 'FD9850-010.jpg', 139000, '넉넉한 핏에 매우 따뜻한 ACG 크루를 입고 베이스캠프나 뒷마당의 화롯가에서 친구들과 따뜻하게 별을 세어 보세요. 나이키 써마 핏 기술이 체열을 관리해 추운 날씨에도 따뜻함이 유지됩니다. 또한 충분히 여유롭게 제작되어 레이어링하기에 좋은 아이템이므로 날이 추워져도 몸을 따뜻하게 유지할 수 있습니다.');
+
+SELECT * FROM Products;
